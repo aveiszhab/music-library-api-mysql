@@ -8,6 +8,7 @@ describe('/artists', () => {
   before(async () => {
     try {
       await Artist.sequelize.sync();
+
     } catch (err) {
       console.log(err);
     }
@@ -51,7 +52,7 @@ describe('/artists', () => {
     });
 
     describe('GET /artists', () => {
-      xit('gets all artist records', (done) => {
+      it('gets all artist records', (done) => {
         request(app)
           .get('/artists')
           .then((res) => {
@@ -63,7 +64,7 @@ describe('/artists', () => {
               expect(artist.genre).to.equal(expected.genre);
             });
             done();
-          });
+           });
       });
     });
 
