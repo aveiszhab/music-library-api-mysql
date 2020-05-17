@@ -8,7 +8,6 @@ describe('/artists', () => {
   before(async () => {
     try {
       await Artist.sequelize.sync();
-
     } catch (err) {
       console.log(err);
     }
@@ -64,12 +63,12 @@ describe('/artists', () => {
               expect(artist.genre).to.equal(expected.genre);
             });
             done();
-           });
+          });
       });
     });
 
     describe('GET /artists/:artistId', () => {
-      xit('gets artist record by id', (done) => {
+      it('gets artist record by id', (done) => {
         const artist = artists[0];
         request(app)
           .get(`/artists/${artist.id}`)
@@ -81,7 +80,7 @@ describe('/artists', () => {
           });
       });
 
-      xit('returns a 404 if the artist does not exist', (done) => {
+      it('returns a 404 if the artist does not exist', (done) => {
         request(app)
           .get('/artists/12345')
           .then((res) => {

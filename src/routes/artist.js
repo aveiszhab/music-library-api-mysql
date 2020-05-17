@@ -4,6 +4,7 @@ const artistController = require('../controllers/artist');
 const router = express.Router();
 
 router.post('/', artistController.createArtist);
-router.get('/', artistController.listArtist)
+router.get('/', artistController.listArtists)
+router.get('/:artistId', artistController.findArtist)
 
 module.exports = router;
