@@ -39,12 +39,14 @@ describe('/albums', () => {
         })
         .then((res) => {
           expect(res.status).to.equal(201);
+          //console.log(res.body)
+          
                   
           Album.findByPk(res.body.id, { raw: true }).then((album) => {
             expect(album.name).to.equal('InnerSpeaker');
             expect(album.year).to.equal(2010);
             expect(album.artistId).to.equal(artist.id);
-            
+            //console.log(typeof album.artistId, typeof artist.id)
             done();
           });
         });
@@ -69,9 +71,9 @@ describe('/albums', () => {
     });
   });
   
-  describe('with albums in the database', () =>{
+  describe('with albums in the database', () =>{  
     let albums;
-    beforeEach((done) => {
+  beforeEach((done) => {
       Promise.all([
         Album.create({name: 'Album1', year: 2020}),
         Album.create({name: 'Album2', year: 2019}),
@@ -109,7 +111,7 @@ describe('/albums', () => {
     });
 
   describe('GET /albums', () => {
-    it('gets all album records', (done) =>{
+    it('gets all album records', (done) => {
       request(app)
       .get('/albums')
       .then((res) => {
@@ -125,7 +127,7 @@ describe('/albums', () => {
     });
   });
 
-  describe('GET /album/albumId', () => {
+  describe('GET /albums/albumId', () => {
     it('gets album record by id', (done) => {
       const album = albums[0];
       request(app)
