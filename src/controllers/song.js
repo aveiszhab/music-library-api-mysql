@@ -14,27 +14,30 @@ exports.createSong = (req, res) => {
   .then(songLinkedToAlbum => songLinkedToAlbum.setArtist(artistId))
   .then(finalSong => {
       res.status(201).json(finalSong);
-    //console.log(finalSong)
     });
   });
 };
 
 exports.listSongsByAlbumId = (req,res) => {
   const albumId = req.params.albumId;
-  //console.log(albumId);
-  Album.findByPk(albumId).then((album ) => {
+  Album.findByPk(albumId,{raw: true}).then((album ) => {
     Song.findAll()
   .then(songs => {
     res.status(200).json(songs);
-    console.log(songs[0].dataValues);
   });
   });
 };
 
 exports.listAllSongs = (req, res) => {
-  Song.findAll().then(songs => {
+  Song.findAll(
+    {
+      include: [{
+        model: Album,
+        as: 'album'
+      }]
+    }
+  ).then(songs => {
     res.status(200).json(songs);
-    //console.log(songs);
   });
 };
 
@@ -62,9 +65,8 @@ exports.updateSong = (req, res) => {
   });
 };
 
-exports.deleteSong = (req, res) => {
+exports.deleteSong = (req, res) => {      
   const songId = req.params.songId;
-  console.log(songId);
   Song.destroy({where: {id: songId}})
   .then((deletedSong) => {
     if(!deletedSong) {

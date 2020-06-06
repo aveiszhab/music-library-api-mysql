@@ -40,10 +40,8 @@ exports.findAlbum = (req, res) => {
 
 exports.updateAlbum = (req, res) => {
   const albumId = req.params.albumId;
-  //console.log(albumId);
   Album.update(req.body, {where: {id: albumId}})
   .then(([updatedAlbum]) => {
-    //console.log(updatedAlbum[0]);
     if(!updatedAlbum) {
       res.status(404).json({error: 'The album could not be found.'})
     } else {

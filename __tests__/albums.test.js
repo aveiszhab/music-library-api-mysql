@@ -39,14 +39,11 @@ describe('/albums', () => {
         })
         .then((res) => {
           expect(res.status).to.equal(201);
-          //console.log(res.body)
           
-                  
           Album.findByPk(res.body.id, { raw: true }).then((album) => {
             expect(album.name).to.equal('InnerSpeaker');
             expect(album.year).to.equal(2010);
             expect(album.artistId).to.equal(artist.id);
-            //console.log(typeof album.artistId, typeof artist.id)
             done();
           });
         });
@@ -83,26 +80,21 @@ describe('/albums', () => {
         setArtistRecords = albums.map(albumLinkedToArtist =>
           albumLinkedToArtist.setArtist(artist));
         Promise.all(setArtistRecords).then(() => done());
-        //console.log(albums[1].dataValues);
-        //console.log(artist.id);
       });
      
     });
 
   describe('GET /artists/:artistId/albums', () =>{
       it('gets list of albums by artist', (done) => {
-        //console.log(artist.id);
         request(app)
           .get(`/artists/${artist.id}/albums`)
           .then((res) => {
             expect(res.status).to.equal(200);
             expect(res.body.length).to.equal(3);
-          //console.log(res.body);
           res.body.forEach((album) => {
             const expected = albums.find((a) => a.id === album.id);
             expect(album.name).to.equal(expected.name);
             expect(album.year).to.equal(expected.year);
-            //console.log(album.name);
           });
           done(); 
         });
@@ -162,7 +154,6 @@ describe('/albums', () => {
         expect(res.status).to.equal(200);
         Album.findByPk(album.id, {raw: true}).then((updatedAlbum) => {
           expect(updatedAlbum.name).to.equal('Renamed');
-          //console.log(updatedAlbum);
           done();
         });
       });
@@ -170,7 +161,6 @@ describe('/albums', () => {
 
     it('updates album year by id', (done) => {
       const album = albums[0];
-      //console.log(album.dataValues);
       request(app)
       .patch(`/albums/${album.id}`)
       .send({year: 1997})
@@ -178,7 +168,6 @@ describe('/albums', () => {
         expect(res.status).to.equal(200);
         Album.findByPk(album.id, {raw: true}).then((updatedAlbum) =>{
           expect(updatedAlbum.year).to.equal(1997);
-          //console.log(updatedAlbum);
           done();
         });
       });

@@ -45,15 +45,12 @@ describe('/songs', () => {
           artist: artist.id,
           name: 'Solitude Is Bliss',
         })
-        .then((res) => {
-          //console.log(res.body)
-          
+        .then((res) => {          
           expect(res.status).to.equal(201);
           const songId = res.body.id;
           expect(res.body.id).to.equal(songId);
           expect(res.body.name).to.equal('Solitude Is Bliss');
           expect(res.body.artistId).to.equal(artist.id);
-          //console.log(typeof res.body.albumId, typeof album.id)
           expect(res.body.albumId).to.equal(album.id);
           done();
         });
@@ -87,13 +84,11 @@ describe('/songs', () => {
         Song.create({name: 'Song3'}),
       ]).then((documents) => {
         songs = documents;
-        setArtistRecords = songs.map(songLinkedToArtist => 
+       setArtistRecords = songs.map(songLinkedToArtist => 
           songLinkedToArtist.setArtist(artist));
-        setAlbumrecords = songs.map(songLinkedToAlbum =>
+        setAlbumRecords = songs.map(songLinkedToAlbum =>
           songLinkedToAlbum.setAlbum(album));
-        Promise.all(setArtistRecords, setAlbumrecords).then(() => done());
-        //console.log(songs[1].dataValues);
-        
+          Promise.all([...setArtistRecords, ...setAlbumRecords]).then(() => done());
       });
     });
 
@@ -104,13 +99,11 @@ describe('/songs', () => {
         .then((res) =>{
           expect(res.status).to.equal(200);
           expect(res.body.length).to.equal(3);
-          //console.log(res.body);
         res.body.forEach((song) => {
           const expected = songs.find((a) => a.id === song.id);
           expect(song.name).to.equal(expected.name);
-          console.log(song.name,expected.name);
           expect(song.artistId).to.equal(expected.artistId);
-          //expect(song.albumId).to.equal(expected.albumId);
+          expect(song.albumId).to.equal(expected.albumId);
         });
         done();
         });
@@ -122,15 +115,13 @@ describe('/songs', () => {
       request(app)
       .get('/songs')
       .then((res) => {
-        //console.log(res.body)
         expect(res.status).to.equal(200);
         expect(res.body.length).to.equal(3);
         res.body.forEach((song) => {
           const expected = songs.find((a) => a.id === song.id);
           expect(song.name).to.equal(expected.name);
           expect(song.artistId).to.equal(expected. artistId);
-          //expect(song.albumId).to.equal(expected. albumId);
-
+          expect(song.albumId).to.equal(expected. albumId);
         });
         done();
       });
@@ -145,7 +136,7 @@ describe('/songs', () => {
       .then((res) => {
         expect(res.status).to.equal(200);
         expect(res.body.name).to.equal(song.name);
-        //expect(res.body.albumId).to.equal(song.albumId);
+        expect(res.body.albumId).to.equal(song.albumId);
         expect(res.body.artistId).to.equal(song.artistId);
         done();
       });
@@ -172,7 +163,6 @@ describe('/songs', () => {
         expect(res.status).to.equal(200);
         Song.findByPk(song.id, {raw: true}).then((updatedSong) => {
           expect(updatedSong.name).to.equal('Renamed');
-          //console.log(updatedSong);
           done();
         });
       });
