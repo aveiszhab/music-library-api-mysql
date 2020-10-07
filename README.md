@@ -29,11 +29,11 @@ https://documenter.getpostman.com/view/11208763/TVRhd9zC
 
 # Set up the project locally
  * Clone the repo
- https://github.com/aveiszhab/book-library-api
+ https://github.com/aveiszhab/music-library-api-mysql
  * Install the project dependencies with npm i
  * Based on the .env.example create two files on the route of your project: .env (realted to your production database) and .env.test (related to your test database).
-    * DB_PASSWORD: replace *somepassword* with a password of your choosing. Make sure you use the same passord in the .env and the .env.test files
-    *   DB_NAME replace *my_db_name* with a name of your choosing. Make sure you DO NOT USE the same name in the .env and the .env.test files. (e.g.: book_library and book_library_test)
+    * DB_PASSWORD: replace *smy-secret-pw* with a password of your choosing. Make sure you use the same passord in the .env and the .env.test files
+    *   DB_NAME replace *music_library* with a name of your choosing. Make sure you DO NOT USE the same name in the .env and the .env.test files. (e.g.: music_library and music_library_test)
 * Run a docker MySQL container by using the following command:
 
         docker run -d -p 3307:3306 --name music_library_mysql -e MYSQL_ROOT_PASSWORD=<PASSWORD> mysql
