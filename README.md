@@ -1,3 +1,5 @@
+This is a course project part of the Manchester Codes curriculum. The project was built on Manchester Codes repository.
+
 # MySQL Book Library API
 
 The Music Library API stores information about artists, albums and songs. A CRUD REST API is implemented to interact with a MySQL database.
