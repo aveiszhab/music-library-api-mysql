@@ -21,7 +21,7 @@ exports.createSong = (req, res) => {
 exports.listSongsByAlbumId = (req,res) => {
   const albumId = req.params.albumId;
   Album.findByPk(albumId,{raw: true}).then((album ) => {
-    Song.findAll()
+    Song.findAll({where: {albumId}})
   .then(songs => {
     res.status(200).json(songs);
   });

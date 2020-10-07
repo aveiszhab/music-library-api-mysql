@@ -1,27 +1,53 @@
-# WIP: MySQL Music Library API
+# MySQL Book Library API
+
+The Music Library API stores information about artists, albums and songs. A CRUD REST API is implemented to interact with a MySQL database.
+
+# Learning Objectives
+
+  * Can you explain what a data schema is?
+  * Can you design and implement an API with CRUD operations on a database?
+
+# Concepts
+
+  * Databases
+  * Database Design
+  * SQL
+  * MySQL
+  * Sequelize
+  * Database Querying and CRUD operations
 
 
-## Setting up the database
+# Endpoints
 
-This project requires a running MySQL database. To set one up with Docker, run:
+https://documenter.getpostman.com/view/11208763/TVRhd9zC
 
-```
-docker run -d -p 3306:3306 --name music_library_mysql -e MYSQL_ROOT_PASSWORD=<PASSWORD> mysql
-```
+# Development utilities used:
 
-Once this is running, you will need to create the `music_library` database:
+- The App was built using Express
+- Testing: Mocha, Chai, supertest
+- Packages: nodemon, dotenv, mysql2, sequelize
 
-```
-docker exec -it music_library_mysql bash
-```
+# Set up the project locally
+ * Clone the repo
+ https://github.com/aveiszhab/book-library-api
+ * Install the project dependencies with npm i
+ * Based on the .env.example create two files on the route of your project: .env (realted to your production database) and .env.test (related to your test database).
+    * DB_PASSWORD: replace *somepassword* with a password of your choosing. Make sure you use the same passord in the .env and the .env.test files
+    *   DB_NAME replace *my_db_name* with a name of your choosing. Make sure you DO NOT USE the same name in the .env and the .env.test files. (e.g.: book_library and book_library_test)
+* Run a docker MySQL container by using the following command:
 
-From inside the container:
+        docker run -d -p 3307:3306 --name music_library_mysql -e MYSQL_ROOT_PASSWORD=<PASSWORD> mysql
 
-```
-mysqy -uroot -p
-```
-You will then be prompted for your password. After you have authenticated, you can create the database with:
+        Make sure to replace <PASSWORD> with a password of your choosing.
+* For testing run:
 
-```
-CREATE DATABASE music_library;
-```
+        npm test
+
+* Start the server:
+
+        npm start 
+
+* use postman to test the routes
+
+# Author:
+Aniko Veiszhab
